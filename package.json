@@ -4,8 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env NODE_ENV=production pm2 index.js",
+    "start:docker": "docker run -d -p 3301:3301 express-4x-api-starter",
+    "start:dev": "cross-env NODE_ENV=development nodemon index.js",
+    "build:docker": "docker build . -t express-4x-api-starter"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bcrypt-nodejs": "0.0.3",
+    "chalk": "^2.4.2",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "cross-env": "^5.2.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.16.4",
+    "lodash": "^4.17.11",
+    "moment": "^2.24.0",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.10",
+    "sprintf-js": "^1.1.2"
+  }
 }
