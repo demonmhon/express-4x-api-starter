@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env NODE_ENV=production pm2 index.js",
+    "start": "cross-env NODE_ENV=production pm2 ./src/index.js",
     "start:docker": "docker run -d -p 3301:3301 express-4x-api-starter",
-    "start:dev": "cross-env NODE_ENV=development nodemon index.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon ./src/index.js",
     "build:docker": "docker build . -t express-4x-api-starter"
   },
   "author": "",
@@ -21,6 +21,7 @@
     "cross-env": "^5.2.0",
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
+    "i18n": "^0.8.3",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
