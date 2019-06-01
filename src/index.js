@@ -17,8 +17,8 @@ const routes = require('./routes');
 
 const app = express();
 i18n.configure({
-  locales:[config.app.locale],
-  directory: __dirname + '/resources/translations'
+  locales: [config.app.locale],
+  directory: __dirname + '/resources/translations',
 });
 
 /**
@@ -28,14 +28,14 @@ i18n.configure({
  * @returns {void}
  */
 function start() {
-   // Global variables
-   global.__appName = require(path.resolve('package.json')).name;
-   global.__appRoot = path.resolve(__dirname, '../../');
-   global.__appEnv = app.get('env');
-   global.__appPort = global.__appEnv.PORT ? global.__appEnv.PORT : 3000;
-   if (config.app.port) {
-     global.__appPort = config.app.port;
-   }
+  // Global variables
+  global.__appName = require(path.resolve('package.json')).name;
+  global.__appRoot = path.resolve(__dirname, '../../');
+  global.__appEnv = app.get('env');
+  global.__appPort = global.__appEnv.PORT ? global.__appEnv.PORT : 3000;
+  if (config.app.port) {
+    global.__appPort = config.app.port;
+  }
 
   app.use(compression());
   app.use(express.json());
@@ -52,7 +52,7 @@ function start() {
   });
 
   // Server status
-  const logShutdown = function () {
+  const logShutdown = function() {
     logger.info(
       sprintf(
         i18n.__('server.stop'),

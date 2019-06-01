@@ -8,6 +8,8 @@
     "start": "cross-env NODE_ENV=production pm2 ./src/index.js",
     "start:docker": "docker run -d -p 3301:3301 express-4x-api-starter",
     "start:dev": "cross-env NODE_ENV=development nodemon ./src/index.js",
+    "prettier": "prettier --check \"src/**/*.js\"  --check \"src/**/*.jsx\"",
+    "prettier:write": "prettier --check \"src/**/*.js\"  --check \"src/**/*.jsx\" --write",
     "build:docker": "docker build . -t express-4x-api-starter"
   },
   "author": "",
@@ -27,5 +29,8 @@
     "morgan": "^1.9.1",
     "nodemon": "^1.18.10",
     "sprintf-js": "^1.1.2"
+  },
+  "devDependencies": {
+    "prettier": "^1.17.1"
   }
 }
