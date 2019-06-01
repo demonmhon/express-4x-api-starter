@@ -11,6 +11,7 @@ const sprintf = require('sprintf-js').sprintf;
 const i18n = require('i18n');
 const _ = require('lodash');
 
+const pkg = require(path.resolve('package.json'));
 const config = require('./config');
 const logger = require('./utils/logger');
 const routes = require('./routes');
@@ -29,13 +30,10 @@ i18n.configure({
  */
 function start() {
   // Global variables
-  global.__appName = require(path.resolve('package.json')).name;
-  global.__appRoot = path.resolve(__dirname, '../../');
-  global.__appEnv = app.get('env');
-  global.__appPort = global.__appEnv.PORT ? global.__appEnv.PORT : 3000;
-  if (config.app.port) {
-    global.__appPort = config.app.port;
-  }
+  global.APP_ENV = app.get('env');
+  global.APP_NAME = _.get(pkg, 'name', '');
+  global.APP_PORT = _.get(config, 'app.port', 300);
+  global.APP_ROOT = path.resolve(__dirname, '../../');
 
   app.use(compression());
   app.use(express.json());
@@ -45,9 +43,9 @@ function start() {
   app.use(logger.logAccess());
   app.use(routes.init());
 
-  app.listen(global.__appPort, function() {
+  app.listen(APP_PORT, function() {
     logger.info(
-      sprintf(i18n.__('server.start'), global.__appPort, global.__appEnv)
+      sprintf(i18n.__('server.start'), APP_PORT, APP_ENV)
     );
   });
 
