@@ -16,7 +16,7 @@ const config = require('./config');
 const logger = require('./utils/logger');
 const routes = require('./routes');
 
-const app = express();
+const expressApp = express();
 i18n.configure({
   locales: [config.app.locale],
   directory: __dirname + '/resources/translations',
@@ -28,10 +28,11 @@ i18n.configure({
  *
  * @returns {void}
  */
-function start() {
+function start(app) {
   // Global variables
   global.APP_ENV = app.get('env');
   global.APP_NAME = _.get(pkg, 'name', '');
+  global.APP_VERSION = _.get(pkg, 'version', '');
   global.APP_PORT = _.get(config, 'app.port', 300);
   global.APP_ROOT = path.resolve(__dirname, '../../');
 
@@ -42,6 +43,7 @@ function start() {
 
   app.use(logger.logAccess());
   app.use(routes.init());
+  app.use(routes.handleErrors());
 
   app.listen(APP_PORT, function() {
     logger.info(
@@ -67,4 +69,4 @@ function start() {
     .on('SIGTERM', logShutdown);
 }
 
-start();
+start(expressApp);

@@ -5,6 +5,16 @@ function getHealth(req, res, next) {
     .end();
 }
 
+function getRoot(req, res, next) {
+  res
+    .send({
+      name: global.APP_NAME,
+      version: global.APP_VERSION,
+    })
+    .end();
+}
+
 module.exports = {
   getHealth,
+  getRoot,
 };
