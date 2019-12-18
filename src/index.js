@@ -33,7 +33,7 @@ function start(app) {
   global.APP_ENV = app.get('env');
   global.APP_NAME = _.get(pkg, 'name', '');
   global.APP_VERSION = _.get(pkg, 'version', '');
-  global.APP_PORT = _.get(config, 'app.port', 300);
+  global.APP_PORT = _.get(config, 'app.port', 3000);
   global.APP_ROOT = path.resolve(__dirname, '../../');
 
   app.use(compression());
