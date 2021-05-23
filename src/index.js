@@ -43,7 +43,6 @@ function start(app) {
 
   app.use(logger.logAccess());
   app.use(routes.init());
-  app.use(routes.handleErrors());
 
   app.listen(APP_PORT, function() {
     logger.info(
