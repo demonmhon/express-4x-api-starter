@@ -44,14 +44,12 @@ function start(app) {
   app.use(logger.logAccess());
   app.use(routes.init());
 
-  app.listen(APP_PORT, function() {
-    logger.info(
-      sprintf(i18n.__('server.start'), APP_PORT, APP_ENV)
-    );
+  app.listen(APP_PORT, function () {
+    logger.info(sprintf(i18n.__('server.start'), APP_PORT, APP_ENV));
   });
 
   // Server status
-  const logShutdown = function() {
+  const logShutdown = function () {
     logger.info(
       sprintf(
         i18n.__('server.stop'),

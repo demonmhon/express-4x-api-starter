@@ -1,25 +1,24 @@
 const route = require('express').Router();
-const api = require('../../controllers/latest/api');
-const errors = require('../../controllers/latest/errors');
+const api = require('../../controllers/v1/api');
+const errors = require('../../controllers/errors');
 
-const attach = (apiVersion = 'latest') => {
-  const v = `/${apiVersion}`;
+const attach = (apiVersion) => {
+  const v = apiVersion ? `/${apiVersion}` : '';
   const globalMW = [
     (req, res, next) => {
       res.setHeader('Content-Type', 'application/json');
       next();
     },
   ];
-  
+  console.log('apiVersion', apiVersion);
+  console.log('v', v);
+
   route.route(`${v}/`).get(globalMW, api.getRoot);
   route.route(`${v}/health`).get(globalMW, api.getHealth);
-  route.use(errors.notFound);
-  route.use(errors.displayError);
 
-  return route
-  
-}
+  return route;
+};
 
 module.exports = {
   attach: attach,
-}
+};

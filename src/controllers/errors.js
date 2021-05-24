@@ -4,12 +4,9 @@ const sprintf = require('sprintf-js').sprintf;
 function notFound(req, res, next) {
   res
     .status(404)
-    .send({ 
+    .send({
       status: 'Error',
-      error: sprintf(
-        i18n.__('error.notFound'),
-        req.url
-      )
+      error: sprintf(i18n.__('error.notFound'), req.url),
     })
     .end();
 }
@@ -17,13 +14,12 @@ function notFound(req, res, next) {
 function displayError(err, req, res, next) {
   res
     .status(500)
-    .send({ 
+    .send({
       status: 'Error',
-      error: err
+      error: err,
     })
     .end();
 }
-
 
 module.exports = {
   notFound,

@@ -54,7 +54,7 @@ function logAccess() {
 }
 module.exports = {
   logAccess,
-  error: message => debugLogger.error(message),
-  info: message => debugLogger.info(message),
-  log: message => debugLogger.log(message),
+  error: (message) => debugLogger.error(message),
+  info: (message) => debugLogger.info(message),
+  log: (message) => debugLogger.log(message),
 };
