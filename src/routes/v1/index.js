@@ -10,8 +10,6 @@ const attach = (apiVersion) => {
       next();
     },
   ];
-  console.log('apiVersion', apiVersion);
-  console.log('v', v);
 
   route.route(`${v}/`).get(globalMW, api.getRoot);
   route.route(`${v}/health`).get(globalMW, api.getHealth);
