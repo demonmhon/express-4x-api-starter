@@ -2,12 +2,12 @@
 /* eslint-disable no-unused-vars */
 
 require('dotenv').config();
+const util = require('util');
 const express = require('express');
 const compression = require('compression');
 const cors = require('cors');
 const moment = require('moment');
 const path = require('path');
-const sprintf = require('sprintf-js').sprintf;
 const i18n = require('i18n');
 const _ = require('lodash');
 
@@ -21,7 +21,7 @@ i18n.configure({
   locales: [config.app.locale],
   directory: __dirname + '/resources/translations',
 });
-
+//
 /**
  * Initialize Server
  * Sets up the express server instances
@@ -45,13 +45,13 @@ function start(app) {
   app.use(routes.init());
 
   app.listen(APP_PORT, function () {
-    logger.info(sprintf(i18n.__('server.start'), APP_PORT, APP_ENV));
+    logger.info(util.format(i18n.__('server.start'), APP_PORT, APP_ENV));
   });
 
   // Server status
   const logShutdown = function () {
     logger.info(
-      sprintf(
+      util.format(
         i18n.__('server.stop'),
         moment.duration(process.uptime(), 'seconds').humanize()
       )

@@ -17,16 +17,21 @@ const loggerConfig = {
     }),
   ],
 };
+
+function getLoggerFileConfig(name) {
+  return {
+    filename: `./logs/${name}.log`,
+    handleExceptions: true,
+    maxsize: 2048,
+    maxFiles: 20,
+  };
+}
+
 const accessLogger = createLogger({
   ...loggerConfig,
   transports: [
     ...loggerConfig.transports,
-    new transports.File({
-      filename: './logs/access.log',
-      handleExceptions: true,
-      maxsize: 2048,
-      maxFiles: 20,
-    }),
+    new transports.File(getLoggerFileConfig('access'))
   ],
 });
 
@@ -34,12 +39,7 @@ const debugLogger = createLogger({
   ...loggerConfig,
   transports: [
     ...loggerConfig.transports,
-    new transports.File({
-      filename: './logs/debug.log',
-      handleExceptions: true,
-      maxsize: 2048,
-      maxFiles: 20,
-    }),
+    new transports.File(getLoggerFileConfig('debug')),
   ],
 });
 
