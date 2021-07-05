@@ -16,7 +16,7 @@ const attach = (apiVersion) => {
   const v = apiVersion ? `/${apiVersion}` : '';
   const globalMW = [sendJson, ignoreFavicon];
 
-  route.route(`${v}/`).get(globalMW, api.getRoot);
+  route.route(`${v}/`).get(globalMW, api.getHealth);
   route.route(`${v}/health`).get(globalMW, api.getHealth);
 
   return route;
