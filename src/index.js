@@ -30,7 +30,7 @@ i18n.configure({
  */
 function start(app) {
   // Global variables
-  global.APP_ENV = app.get('env');
+  global.APP_ENV = _get(config, 'env', 'development');
   global.APP_NAME = _get(pkg, 'name', '');
   global.APP_PORT = _get(config, 'app.port', 3000);
   global.APP_ROOT = path.resolve(__dirname, '../../');
