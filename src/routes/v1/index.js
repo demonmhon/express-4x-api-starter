@@ -1,6 +1,6 @@
 const route = require('express').Router();
-const api = require('../../controllers/v1/api');
-const errors = require('../../controllers/errors');
+
+const userController = require('../../controllers/v1/user-controller');
 
 function ignoreFavicon(req, res, next) {
   if (req.originalUrl.includes('favicon.ico')) res.status(204).end();
@@ -14,10 +14,10 @@ function sendJson(req, res, next) {
 
 const attach = (apiVersion) => {
   const v = apiVersion ? `/${apiVersion}` : '';
-  const globalMW = [sendJson, ignoreFavicon];
+  const globalMW = [ignoreFavicon, sendJson];
 
-  route.route(`${v}/`).get(globalMW, api.getHealth);
-  route.route(`${v}/health`).get(globalMW, api.getHealth);
+  route.route(`${v}/users`).get(globalMW, userController.getAll);
+  route.route(`${v}/users/:id?`).get(globalMW, userController.getById);
 
   return route;
 };

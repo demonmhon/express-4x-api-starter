@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
+const morgan = require('morgan');
 const { createLogger, format, transports } = require('winston');
-const { logLevel } = require('../config');
+const { env, logLevel } = require('../config');
 
-const logger = createLogger({
+const accessLogger = createLogger({
   format: format.json(),
   transports: [
     new transports.Console({
@@ -16,7 +17,7 @@ const logger = createLogger({
       handleExceptions: true,
     }),
     new transports.File({
-      filename: `./logs/combined.log`,
+      filename: `./logs/access.log`,
       handleExceptions: true,
       maxsize: 10480,
       maxFiles: 1,
@@ -24,4 +25,14 @@ const logger = createLogger({
   ],
 });
 
-module.exports = logger;
+const logAccess = () => {
+  return morgan(env !== 'development' ? 'combined' : 'tiny', {
+    stream: {
+      write: (message) => {
+        accessLogger.info(message);
+      },
+    },
+  });
+};
+
+module.exports = logAccess;

@@ -13,6 +13,7 @@ const _get = require('lodash/get');
 
 const pkg = require(path.resolve('package.json'));
 const config = require('./config');
+const accessLogger = require('./utils/access-logger');
 const logger = require('./utils/logger');
 const routes = require('./routes');
 
@@ -39,8 +40,8 @@ function start(app) {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cors());
-
-  app.use(logger.logAccess());
+  
+  app.use(accessLogger());
   app.use(routes.init());
 
   app.listen(APP_PORT, function () {

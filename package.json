@@ -8,6 +8,8 @@
     "start": "cross-env NODE_ENV=production pm2 ./src/index.js",
     "start:docker": "docker run -d -p 3301:3301 express-4x-api-starter",
     "start:dev": "cross-env NODE_ENV=development nodemon ./src/index.js",
+    "lint": "eslint -c .eslintrc ./src",
+    "lint:fix": "eslint -c .eslintrc ./src --fix",
     "prettier": "prettier --check \"src/**/*.js\"",
     "prettier:write": "prettier --check \"src/**/*.js\" --write",
     "build:docker": "docker build . -t express-4x-api-starter"
@@ -20,6 +22,8 @@
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
+    "eslint": "^7.30.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "express": "^4.17.1",
     "i18n": "^0.13.3",
     "lodash": "^4.17.21",
