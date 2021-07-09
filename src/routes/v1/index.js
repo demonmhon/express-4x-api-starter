@@ -12,12 +12,11 @@ function sendJson(req, res, next) {
   next();
 }
 
-const attach = (apiVersion) => {
-  const v = apiVersion ? `/${apiVersion}` : '';
+const attach = () => {
   const globalMW = [ignoreFavicon, sendJson];
 
-  route.route(`${v}/users`).get(globalMW, userController.getAll);
-  route.route(`${v}/users/:id?`).get(globalMW, userController.getById);
+  route.route('/users').get(globalMW, userController.getAll);
+  route.route('/users/:id?').get(globalMW, userController.getById);
 
   return route;
 };
