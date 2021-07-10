@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env NODE_ENV=test jest",
+    "test:watch": "cross-env NODE_ENV=test jest --watch",
     "start": "cross-env NODE_ENV=production pm2 ./src/index.js",
     "start:docker": "docker run -d -p 3301:3301 express-4x-api-starter",
     "start:dev": "cross-env NODE_ENV=development nodemon ./src/index.js",
@@ -32,7 +33,19 @@
     "nodemon": "^2.0.7",
     "winston": "^3.3.3"
   },
+
   "devDependencies": {
-    "prettier": "^2.3.0"
+    "eslint": "^7.30.0",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-prettier": "^3.4.0",
+    "jest": "^27.0.6",
+    "prettier": "^2.3.0",
+    "supertest": "^6.1.3"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }

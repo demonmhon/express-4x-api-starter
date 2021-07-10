@@ -1,7 +1,8 @@
 {
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "jest/globals": true
   },
   "extends": "eslint:recommended",
   "globals": {
@@ -13,10 +14,11 @@
     "sourceType": "module"
   },
   "plugins": [
-    "prettier"
+    "prettier",
+    "jest"
   ],
   "rules": {
     "no-console": "off"
   },
-  "settings": {}
+  "settings": {},
 }
