@@ -2,7 +2,7 @@ const util = require('util');
 const i18n = require('i18n');
 const _get = require('lodash/get');
 
-const notFound = (req, res, next) => {
+const notFound = (req, res) => {
   res
     .status(404)
     .send({
@@ -13,6 +13,7 @@ const notFound = (req, res, next) => {
 };
 
 const displayError = (err, req, res, next) => {
+  if (res.headersSent) return next(err);
   res
     .status(500)
     .send({
