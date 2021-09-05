@@ -7,15 +7,19 @@ const { env, logLevel } = require('../config');
 const accessLogger = createLogger({
   format: format.json(),
   transports: [
-    new transports.Console({
-      level: logLevel,
-      format: format.combine(
-        format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-        format.colorize(),
-        format.simple()
-      ),
-      handleExceptions: true,
-    }),
+    ...(!['test'].includes(env)
+      ? [
+          new transports.Console({
+            level: logLevel,
+            format: format.combine(
+              format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+              format.colorize(),
+              format.simple()
+            ),
+            handleExceptions: true,
+          }),
+        ]
+      : []),
     new transports.File({
       filename: `./logs/access.log`,
       handleExceptions: true,
