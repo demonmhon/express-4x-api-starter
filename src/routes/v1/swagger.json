@@ -1,0 +1,82 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "express-4x-api-starter",
+    "description": "express-4x-api-starter",
+    "version": "1.0.0"
+  },
+  "basePath": "/v1",
+  "tags": [
+    {
+      "name": "system",
+      "description": "system"
+    },
+    {
+      "name": "user",
+      "description": "User"
+    }
+  ],
+  "schemes": ["http", "https"],
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": ["user"],
+        "summary": "List user",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of user"
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "tags": ["user"],
+        "summary": "",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User object",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "required": ["email", "active"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "number"
+        },
+        "email": {
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        },
+        "active": {
+          "type": "boolean",
+          "description": "True for active users"
+        }
+      }
+    }
+  }
+}

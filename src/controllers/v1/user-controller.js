@@ -24,23 +24,23 @@ const users = [
     genger: 'M',
     active: false,
   },
-]
+];
 
 const getAll = (req, res, next) => {
   return res.send({
     total: 3,
     data: [...users],
   });
-}
+};
 
 const getById = (req, res, next) => {
   const id = req.params.id;
-  const matchUser = users.filter(u => u.id == id)
+  const matchUser = users.filter((u) => u.id == id);
   if (matchUser.length) {
-    return res.send(matchUser[0])
+    return res.send(matchUser[0]);
   }
-  throw new Error(`No user with given id: ${id}`)
-}
+  throw new Error(`No user with given id: ${id}`);
+};
 
 module.exports = {
   getAll,

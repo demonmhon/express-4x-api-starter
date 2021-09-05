@@ -10,7 +10,7 @@ const v1 = require('./v1');
 const init = (app) => {
   appRoute.use(favicon);
   appRoute.use(health);
-  
+
   appRoute.use(v1.attach());
   appRoute.use('/v1', v1.attach());
   appRoute.use('/latest', v1.attach());
