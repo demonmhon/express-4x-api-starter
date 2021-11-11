@@ -26,7 +26,7 @@ const app = express();
 // Global variables
 global.APP_ENV = _get(config, 'env', 'development');
 global.APP_NAME = _get(pkg, 'name', '');
-global.APP_PORT = _get(config, 'app.port', 3000);
+global.APP_PORT = _get(config, 'app.port', 80);
 global.APP_ROOT = path.resolve(__dirname, '../../');
 
 app.use(compression());

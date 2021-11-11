@@ -1,7 +1,7 @@
 module.exports = {
   apps : [{
     name: "express-4x-api-starter",
-    script: "./index.js",
+    script: "src/index.js",
     env: {
       NODE_ENV: "development",
     },

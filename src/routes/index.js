@@ -7,7 +7,7 @@ const health = require('../controllers/health');
 const { notFound, displayError } = require('../controllers/errors');
 const v1 = require('./v1');
 
-const init = (app) => {
+const init = () => {
   appRoute.use(favicon);
   appRoute.use(health);
 
