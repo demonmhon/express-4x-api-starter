@@ -6,7 +6,6 @@ const config = {
   logLevel: getLogLevelValue(process.env.NODE_ENV),
   app: {
     port: process.env.PORT,
-    locale: process.env.LOCALE,
   },
 };
 

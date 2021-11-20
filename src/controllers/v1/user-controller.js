@@ -26,14 +26,14 @@ const users = [
   },
 ];
 
-const getAll = (req, res, next) => {
+const getAll = (req, res) => {
   return res.send({
     total: 3,
     data: [...users],
   });
 };
 
-const getById = (req, res, next) => {
+const getById = (req, res) => {
   const id = req.params.id;
   const matchUser = users.filter((u) => u.id == id);
   if (matchUser.length) {

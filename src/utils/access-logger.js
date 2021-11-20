@@ -20,12 +20,6 @@ const accessLogger = createLogger({
           }),
         ]
       : []),
-    new transports.File({
-      filename: `./logs/access.log`,
-      handleExceptions: true,
-      maxsize: 10480,
-      maxFiles: 1,
-    }),
   ],
 });
 

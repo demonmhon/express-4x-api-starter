@@ -1,6 +1,6 @@
 const route = require('express').Router();
 
-const sendHealthReport = (req, res, next) => {
+const sendHealthReport = (req, res) => {
   res.status(200).send({ api: global.APP_NAME, status: 'OK' }).end();
 };
 

@@ -1,5 +1,4 @@
 const util = require('util');
-const i18n = require('i18n');
 const _get = require('lodash/get');
 
 const notFound = (req, res) => {
@@ -7,7 +6,7 @@ const notFound = (req, res) => {
     .status(404)
     .send({
       status: 'Error',
-      error: util.format(i18n.__('error.notFound'), req.url),
+      error: util.format('Resource %s not found', req.url),
     })
     .end();
 };

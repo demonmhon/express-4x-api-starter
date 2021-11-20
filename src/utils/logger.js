@@ -15,12 +15,6 @@ const logger = createLogger({
       ),
       handleExceptions: true,
     }),
-    new transports.File({
-      filename: `./logs/combined.log`,
-      handleExceptions: true,
-      maxsize: 10480,
-      maxFiles: 1,
-    }),
   ],
 });
 

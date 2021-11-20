@@ -5,9 +5,7 @@ const util = require('util');
 const express = require('express');
 const compression = require('compression');
 const cors = require('cors');
-const moment = require('moment');
 const path = require('path');
-const i18n = require('i18n');
 const _get = require('lodash/get');
 
 const pkg = require(path.resolve('package.json'));
@@ -15,11 +13,6 @@ const config = require('./config');
 const accessLogger = require('./utils/access-logger');
 const logger = require('./utils/logger');
 const routes = require('./routes');
-
-i18n.configure({
-  locales: [config.app.locale],
-  directory: __dirname + '/resources/translations',
-});
 
 const app = express();
 
@@ -39,12 +32,6 @@ app.use(routes.init());
 
 // Server status
 const logShutdown = function () {
-  logger.info(
-    util.format(
-      i18n.__('server.stop'),
-      moment.duration(process.uptime(), 'seconds').humanize()
-    )
-  );
   process.exit(0);
 };
 

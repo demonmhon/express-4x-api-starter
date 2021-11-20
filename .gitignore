@@ -30,11 +30,9 @@ config/app.config.local.js
 
 # NPM Project config
 .npmrc
-package-lock.json
 
 # Yarn Project config
 .yarnrc
-yarn.lock
 yarn-debug.log*
 yarn-error.log*
 

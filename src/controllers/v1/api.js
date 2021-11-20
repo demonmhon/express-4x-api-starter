@@ -1,4 +1,4 @@
-function getHealth(req, res, next) {
+function getHealth(req, res) {
   res.status(200).send({ status: 'OK' }).end();
 }
 

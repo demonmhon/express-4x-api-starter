@@ -1,7 +1,0 @@
-{
-  "server.start": "Express server listening on port %d in %s mode",
-  "server.stop": "Server was running for %s",
-  "server.viewOnLocalhost": "You can now view the web in the browser http://localhost:%s/",
-
-  "error.notFound": "'Resource %s not found"
-}
