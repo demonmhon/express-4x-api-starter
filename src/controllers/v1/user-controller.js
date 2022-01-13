@@ -1,3 +1,5 @@
+const { ResourceNotfound } = require('../../utils/custom-errors');
+
 // TODO: implement real getAll() resource
 const users = [
   {
@@ -39,7 +41,7 @@ const getById = (req, res) => {
   if (matchUser.length) {
     return res.send(matchUser[0]);
   }
-  throw new Error(`No user with given id: ${id}`);
+  throw new ResourceNotfound(`No user with given id: ${id}`);
 };
 
 module.exports = {
