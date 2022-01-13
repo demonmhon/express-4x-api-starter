@@ -30,15 +30,4 @@ app.use(cors());
 app.use(accessLogger());
 app.use(routes.init());
 
-// Server status
-const logShutdown = function () {
-  process.exit(0);
-};
-
-process
-  .removeAllListeners('SIGINT')
-  .on('SIGINT', logShutdown)
-  .removeAllListeners('SIGTERM')
-  .on('SIGTERM', logShutdown);
-
 module.exports = app;

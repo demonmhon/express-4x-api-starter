@@ -4,7 +4,7 @@ const util = require('util');
 const app = require('./app');
 const logger = require('./utils/logger');
 
-app.listen(APP_PORT, function () {
+const server = app.listen(APP_PORT, function () {
   logger.info(
     util.format(
       'Express server listening on port %d in %s mode',
@@ -13,3 +13,18 @@ app.listen(APP_PORT, function () {
     )
   );
 });
+
+// Graceful Shutdown
+// https://expressjs.com/en/advanced/healthcheck-graceful-shutdown.html
+const gracefulShutdown = () => {
+  logger.debug('SIGINT/SIGTERM signal received: closing HTTP server');
+  server.close(() => {
+    logger.debug('HTTP server closed');
+  });
+};
+
+process
+  .removeAllListeners('SIGINT')
+  .on('SIGINT', gracefulShutdown)
+  .removeAllListeners('SIGTERM')
+  .on('SIGTERM', gracefulShutdown);
