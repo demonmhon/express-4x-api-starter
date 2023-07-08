@@ -1,8 +1,10 @@
+const router = require('express').Router();
 const util = require('util');
 const _get = require('lodash/get');
-const { ResourceNotfound } = require('../utils/custom-errors');
 
-const notFound = (req, res) => {
+const { ResourceNotfound, BadRequest } = require('../utils/custom-errors');
+
+const handleNotFound = (req, res) => {
   res
     .status(404)
     .send({
@@ -13,9 +15,22 @@ const notFound = (req, res) => {
     .end();
 };
 
-const displayError = (err, req, res, next) => {
+const handleBadRequest = (req, res) => {
+  res
+    .status(400)
+    .send({
+      status: 'Error',
+      code: 400,
+      message: util.format('Cannot process the request for %s', req.url),
+    })
+    .end();
+};
+
+const handleError = (err, req, res, next) => {
   if (res.headersSent) return next(err);
-  if ([ResourceNotfound.name].includes(err.name)) return notFound(req, res);
+  if ([ResourceNotfound.name].includes(err.name))
+    return handleNotFound(req, res);
+  if ([BadRequest.name].includes(err.name)) return handleBadRequest(req, res);
   res
     .status(500)
     .send({
@@ -27,6 +42,6 @@ const displayError = (err, req, res, next) => {
 };
 
 module.exports = {
-  notFound,
-  displayError,
+  handleNotFound,
+  handleError,
 };

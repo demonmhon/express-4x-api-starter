@@ -1,4 +1,4 @@
-const { ResourceNotfound } = require('../../utils/custom-errors');
+const { ResourceNotfound, BadRequest } = require('../../utils/custom-errors');
 
 // TODO: implement real getAll() resource
 const users = [
@@ -7,7 +7,7 @@ const users = [
     name: 'John',
     email: 'john@email.domain.com',
     age: 35,
-    genger: 'M',
+    gender: 'M',
     active: true,
   },
   {
@@ -15,7 +15,7 @@ const users = [
     name: 'Jane',
     email: 'jane@email.domain.com',
     age: 30,
-    genger: 'F',
+    gender: 'F',
     active: true,
   },
   {
@@ -23,7 +23,7 @@ const users = [
     name: 'Sam',
     email: 'sam@email.domain.com',
     age: 24,
-    genger: 'M',
+    gender: 'M',
     active: false,
   },
 ];
@@ -44,7 +44,23 @@ const getById = (req, res) => {
   throw new ResourceNotfound(`No user with given id: ${id}`);
 };
 
+const postUser = (req, res) => {
+  const { name, email } = req.body;
+  if (!name || !email) {
+    throw new BadRequest();
+  }
+  return res.send({
+    id: '999',
+    name,
+    email,
+    age: null,
+    gender: 'M',
+    active: false,
+  });
+};
+
 module.exports = {
   getAll,
   getById,
+  postUser,
 };

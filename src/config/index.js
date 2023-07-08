@@ -1,5 +1,5 @@
 const getLogLevelValue = (env) =>
-  ['development'].includes(env) ? 'debug' : 'info';
+  ['development', 'dev'].includes(env) ? 'debug' : 'info';
 
 const config = {
   env: process.env.NODE_ENV,

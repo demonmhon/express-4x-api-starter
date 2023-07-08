@@ -3,7 +3,7 @@ const { createLogger, format, transports } = require('winston');
 
 const { env, logLevel } = require('../config');
 
-const accessLogger = createLogger({
+const logAccess = createLogger({
   format: format.json(),
   transports: !['test'].includes(env)
     ? [
@@ -20,11 +20,11 @@ const accessLogger = createLogger({
     : [],
 });
 
-const logAccess = () =>
+const log = () =>
   morgan(env !== 'development' ? 'combined' : 'tiny', {
     stream: {
-      write: (message) => accessLogger.info(message),
+      write: (message) => logAccess.info(message),
     },
   });
 
-module.exports = logAccess;
+module.exports = log;
