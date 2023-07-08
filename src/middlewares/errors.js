@@ -4,7 +4,7 @@ const _get = require('lodash/get');
 
 const { ResourceNotfound, BadRequest } = require('../utils/custom-errors');
 
-const handleNotFound = (req, res) => {
+const handleNotFound = (err, req, res) => {
   res
     .status(404)
     .send({
@@ -15,7 +15,7 @@ const handleNotFound = (req, res) => {
     .end();
 };
 
-const handleBadRequest = (req, res) => {
+const handleBadRequest = (err, req, res) => {
   res
     .status(400)
     .send({
@@ -26,22 +26,23 @@ const handleBadRequest = (req, res) => {
     .end();
 };
 
-const handleError = (err, req, res, next) => {
+const errorsHandle = () => (err, req, res, next) => {
   if (res.headersSent) return next(err);
-  if ([ResourceNotfound.name].includes(err.name))
-    return handleNotFound(req, res);
-  if ([BadRequest.name].includes(err.name)) return handleBadRequest(req, res);
-  res
-    .status(500)
-    .send({
-      status: 'Error',
-      code: 500,
-      message: _get(err, 'message', {}),
-    })
-    .end();
+  switch (err.name) {
+    case ResourceNotfound.name:
+      return handleNotFound(err, req, res);
+    case BadRequest.name:
+      return handleBadRequest(err, req, res);
+    default:
+      res
+        .status(500)
+        .send({
+          status: 'Error',
+          code: 500,
+          message: _get(err, 'message', {}),
+        })
+        .end();
+  }
 };
 
-module.exports = {
-  handleNotFound,
-  handleError,
-};
+module.exports = errorsHandle;

@@ -26,17 +26,36 @@ const users = [
     gender: 'M',
     active: false,
   },
+  {
+    id: '4',
+    name: 'Bob',
+    email: 'bob@email.domain.com',
+    age: 41,
+    gender: 'M',
+    active: false,
+  },
+  {
+    id: '5',
+    name: 'Anna',
+    email: 'anna@email.domain.com',
+    age: 38,
+    gender: 'F',
+    active: false,
+  },
 ];
 
 const getAll = (req, res) => {
   return res.send({
-    total: 3,
+    total: users.length,
     data: [...users],
   });
 };
 
 const getById = (req, res) => {
   const id = req.params.id;
+  if (!id) {
+    throw new BadRequest();
+  }
   const matchUser = users.filter((u) => u.id == id);
   if (matchUser.length) {
     return res.send(matchUser[0]);

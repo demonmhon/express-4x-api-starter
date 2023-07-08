@@ -5,7 +5,7 @@
     "description": "express-4x-api-starter",
     "version": "1.0.0"
   },
-  "basePath": "/v1",
+  "basePath": "",
   "tags": [
     {
       "name": "system",
@@ -18,7 +18,7 @@
   ],
   "schemes": ["http", "https"],
   "paths": {
-    "/users": {
+    "/v1/users": {
       "get": {
         "tags": ["user"],
         "summary": "List user",
@@ -64,7 +64,7 @@
         }
       }
     },
-    "/users/{userId}": {
+    "/v1/users/{userId}": {
       "get": {
         "tags": ["user"],
         "summary": "",

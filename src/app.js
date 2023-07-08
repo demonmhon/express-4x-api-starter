@@ -11,7 +11,8 @@ const _get = require('lodash/get');
 const pkg = require(path.resolve('package.json'));
 const config = require('./config');
 const logAccess = require('./utils/log-access');
-const appRoutes = require('./routes');
+const appRoutes = require('./routes/app');
+const errors = require('./middlewares/errors');
 
 const app = express();
 
@@ -26,7 +27,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-app.use(logAccess());
 app.use(appRoutes());
+app.use(errors());
+app.use(logAccess());
 
 module.exports = app;
