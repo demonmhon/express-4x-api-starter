@@ -12,6 +12,9 @@ const server = app.listen(APP_PORT, function () {
       APP_ENV
     )
   );
+  if (global.APP_ENV === 'development') {
+    logger.info(util.format('Open http://localhost:%d', APP_PORT));
+  }
 });
 
 // Graceful Shutdown

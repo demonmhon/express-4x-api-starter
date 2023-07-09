@@ -4,6 +4,7 @@ const router = require('express').Router();
 
 const health = require('../middlewares/health');
 const favicon = require('../middlewares/favicon');
+const errors = require('../middlewares/errors');
 
 const v1 = require('./v1');
 
@@ -14,6 +15,7 @@ const appRoutes = () => {
   router.use(v1.useRoutes());
   router.use('/v1', v1.useRoutes());
   router.use('/latest', v1.useRoutes());
+  router.use(errors.handleNotFound);
 
   return router;
 };

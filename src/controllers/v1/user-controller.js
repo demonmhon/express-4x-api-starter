@@ -66,7 +66,10 @@ const getById = (req, res) => {
 const postUser = (req, res) => {
   const { name, email } = req.body;
   if (!name || !email) {
-    throw new BadRequest();
+    throw new BadRequest('Required fields missing');
+  }
+  if (typeof name !== 'string' || typeof email !== 'string') {
+    throw new BadRequest('Incorrect data type');
   }
   return res.send({
     id: '999',
