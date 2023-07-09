@@ -27,8 +27,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
+app.use(logAccess());
 app.use(appRoutes());
 app.use(errors.handle());
-app.use(logAccess());
 
 module.exports = app;

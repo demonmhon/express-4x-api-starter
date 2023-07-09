@@ -23,8 +23,12 @@ const logAccess = createLogger({
 const log = () =>
   morgan(env !== 'development' ? 'combined' : 'tiny', {
     stream: {
-      write: (message) => logAccess.info(message),
+      write: (message) => {
+        logAccess.info(message);
+      },
     },
+    // Skip log for favicon
+    skip: (req, res, next) => req.originalUrl.includes('favicon.ico'),
   });
 
 module.exports = log;
