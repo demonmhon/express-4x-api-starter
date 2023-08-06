@@ -39,3 +39,6 @@ yarn-error.log*
 # dist
 dist
 .cache
+
+# DB
+db
