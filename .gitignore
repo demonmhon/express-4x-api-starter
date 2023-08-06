@@ -42,3 +42,4 @@ dist
 
 # DB
 db
+mongo-init.js
