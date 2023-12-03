@@ -3,7 +3,7 @@ const { createLogger, format, transports } = require('winston');
 
 const { env, logLevel } = require('../config');
 
-const logAccess = createLogger({
+const logger = createLogger({
   format: format.json(),
   transports: !['test'].includes(env)
     ? [
@@ -17,18 +17,22 @@ const logAccess = createLogger({
           handleExceptions: true,
         }),
       ]
-    : [],
+    : [
+        new transports.Console({
+          format: format.simple(),
+        }),
+      ],
 });
 
-const log = () =>
+const logAccess = () =>
   morgan(env !== 'development' ? 'combined' : 'tiny', {
     stream: {
       write: (message) => {
-        logAccess.info(message);
+        logger.info(message);
       },
     },
     // Skip log for favicon
     skip: (req, res, next) => req.originalUrl.includes('favicon.ico'),
   });
 
-module.exports = log;
+module.exports = logAccess;
