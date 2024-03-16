@@ -1,5 +1,6 @@
-const request = require('supertest');
-const app = require('./app');
+import request from 'supertest';
+
+import app from './app';
 
 describe('Common endpoints', () => {
   it('health check', async () => {

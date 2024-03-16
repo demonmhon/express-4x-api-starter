@@ -1,13 +1,13 @@
-const { createLogger, format, transports } = require('winston');
+import { createLogger, format, transports } from 'winston';
 
-const { env, logLevel } = require('../config');
+import config from '../config';
 
 const logger = createLogger({
   format: format.json(),
-  transports: !['test'].includes(env)
+  transports: !['test'].includes(config.env)
     ? [
         new transports.Console({
-          level: logLevel,
+          level: config.logLevel,
           format: format.combine(
             format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
             format.colorize(),
@@ -19,4 +19,4 @@ const logger = createLogger({
     : [],
 });
 
-module.exports = logger;
+export default logger;
