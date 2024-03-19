@@ -1,4 +1,6 @@
-const { ResourceNotfound, BadRequest } = require('../../utils/custom-errors');
+import { Request, Response } from 'express';
+
+import { ResourceNotfound, BadRequest } from '../../utils/custom-errors';
 
 // TODO: implement real getAll() resource
 const users = [
@@ -44,14 +46,14 @@ const users = [
   },
 ];
 
-const getAll = (req, res) => {
+export const getAll = (req: Request, res: Response) => {
   return res.send({
     total: users.length,
     data: [...users],
   });
 };
 
-const getById = (req, res) => {
+export const getById = (req: Request, res: Response) => {
   const id = req.params.id;
   if (!id) {
     throw new BadRequest();
@@ -63,7 +65,7 @@ const getById = (req, res) => {
   throw new ResourceNotfound(`No user with given id: ${id}`);
 };
 
-const postUser = (req, res) => {
+export const postUser = (req: Request, res: Response) => {
   const { name, email } = req.body;
   if (!name || !email) {
     throw new BadRequest('Required fields missing');
@@ -81,8 +83,4 @@ const postUser = (req, res) => {
   });
 };
 
-module.exports = {
-  getAll,
-  getById,
-  postUser,
-};
+export default { getAll, getById, postUser };

@@ -1,18 +1,15 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 
-// const errors = require('../middlewares/errors');
+import routesV1 from './v1';
 
-const v1 = require('./v1');
-
-const appRoutes = () => {
+export const appRoutes = () => {
   const router = Router();
 
-  // router.use(v1.useRoutes());
-  // router.use('/v1', v1.useRoutes());
-  // router.use('/latest', v1.useRoutes());
-  // router.use(errors.handleNotFound);
+  router.use(routesV1());
+  router.use('/v1', routesV1());
+  router.use('/latest', routesV1());
 
   return router;
 };
 
-module.exports = appRoutes;
+export default appRoutes;

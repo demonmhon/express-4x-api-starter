@@ -8,7 +8,7 @@ import config from './config';
 import faviconMiddleware from './middlewares/favicon';
 import healthMiddleware from './middlewares/health';
 import logAccess from './middlewares/log-access';
-// import appRoutes from './routes/app';
+import appRoutes from './routes/app';
 import errorsMiddleware, {
   errorNotFoundMiddleware,
 } from './middlewares/errors';
@@ -30,7 +30,7 @@ export class App {
     this.app.use(faviconMiddleware());
     this.app.use(healthMiddleware());
     this.app.use(logAccess());
-    // this.app.use(appRoutes());
+    this.app.use(appRoutes());
     this.app.use(errorsMiddleware());
     this.app.use(errorNotFoundMiddleware());
   }
