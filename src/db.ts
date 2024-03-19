@@ -1,17 +1,15 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const config = require('./config');
-const logger = require('./utils/logger');
+import config from './config';
+import logger from './utils/logger';
 
 const { host, user, password, port, db } = config.mongodb;
 
-async function connect() {
+export const connect = async () => {
   try {
     const mongoDBURL = `mongodb://${user}:${password}@${host}:${port}/${db}?authSource=admin`;
     const conn = await mongoose.connect(mongoDBURL, {
       keepAlive: true,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
     });
     mongoose.set('runValidators', true);
 
@@ -22,13 +20,8 @@ async function connect() {
     logger.error(`Mongo connection error: ${error}`);
     process.exit(1);
   }
-}
-
-function status() {
-  return mongoose.STATES[mongoose.connection.readyState];
-}
-
-module.exports = {
-  connect,
-  status,
 };
+
+export const status = () => mongoose.STATES[mongoose.connection.readyState];
+
+export default { connect, status };

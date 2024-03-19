@@ -12,6 +12,7 @@ import appRoutes from './routes/app';
 import errorsMiddleware, {
   errorNotFoundMiddleware,
 } from './middlewares/errors';
+import db from './db';
 
 export class App {
   public app: Application;
@@ -22,6 +23,7 @@ export class App {
   }
 
   private init() {
+    db.connect();
     this.app.use(compression());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
