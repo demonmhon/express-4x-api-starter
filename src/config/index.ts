@@ -1,3 +1,5 @@
+import pkg from '../../package.json';
+
 const getLogLevelValue = (env: string | undefined): string => {
   if (!env) {
     return 'info';
@@ -9,7 +11,8 @@ const config = {
   env: process.env.NODE_ENV ?? 'development',
   logLevel: getLogLevelValue(process.env.NODE_ENV),
   app: {
-    port: process.env.PORT ?? 80,
+    name: pkg.name ?? 'api',
+    port: process.env.PORT ?? 3000,
   },
 };
 
