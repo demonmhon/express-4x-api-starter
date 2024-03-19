@@ -1,14 +1,13 @@
-const morgan = require('morgan');
-const { createLogger, format, transports } = require('winston');
-
-const { env, logLevel } = require('../config');
+import morgan from 'morgan';
+import { createLogger, format, transports } from 'winston';
+import config from '../config';
 
 const logger = createLogger({
   format: format.json(),
-  transports: !['test'].includes(env)
+  transports: !['test'].includes(config.env)
     ? [
         new transports.Console({
-          level: logLevel,
+          level: config.logLevel,
           format: format.combine(
             format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
             format.colorize(),
@@ -24,15 +23,13 @@ const logger = createLogger({
       ],
 });
 
-const logAccess = () =>
-  morgan(env !== 'development' ? 'combined' : 'tiny', {
+export const logAccess = () =>
+  morgan(config.env !== 'development' ? 'combined' : 'tiny', {
     stream: {
-      write: (message) => {
+      write: (message: any) => {
         logger.info(message);
       },
     },
-    // Skip log for favicon
-    skip: (req, res, next) => req.originalUrl.includes('favicon.ico'),
   });
 
-module.exports = logAccess;
+export default logAccess;
