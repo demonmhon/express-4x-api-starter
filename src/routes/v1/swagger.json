@@ -2,86 +2,121 @@
   "openapi": "3.0.3",
   "info": {
     "title": "express-4x-api-starter",
-    "description": "express-4x-api-starter",
+    "description": "A starter template for an Express 4.x API, now compliant with OpenAPI 3.0.",
     "version": "1.0.0"
   },
-  "basePath": "",
-  "tags": [
+  "servers": [
     {
-      "name": "system",
-      "description": "system"
+      "url": "http://localhost:3000/v1",
+      "description": "Development server"
     },
     {
-      "name": "user",
-      "description": "User"
+      "url": "https://api.example.com/v1",
+      "description": "Production server"
     }
   ],
-  "schemes": ["http", "https"],
+  "tags": [
+    {
+      "name": "user",
+      "description": "Operations about users"
+    }
+  ],
   "paths": {
-    "/v1/users": {
+    "/users": {
       "get": {
-        "tags": ["user"],
-        "summary": "List user",
-        "description": "",
+        "tags": [
+          "user"
+        ],
+        "summary": "List all users",
+        "description": "Retrieves a list of all registered users.",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "List of user",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/User"
+            "description": "A list of users.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
               }
             }
           },
           "404": {
-            "description": "Users not found"
+            "description": "No users found"
           }
         }
       },
       "post": {
-        "tags": ["user"],
+        "tags": [
+          "user"
+        ],
         "summary": "Create a new user",
-        "description": "",
+        "description": "Adds a new user to the system.",
         "requestBody": {
-          "description": "Create a new user",
+          "description": "User object that needs to be added to the store",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/NewUser"
+                "$ref": "#/components/schemas/NewUser"
               }
             }
           },
           "required": true
         },
         "responses": {
-          "200": {
-            "description": "Successful operation. New user data added",
-            "schema": {
-              "$ref": "#/definitions/User"
+          "201": {
+            "description": "User created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestValidationFailed"
+                }
+              }
             }
           }
         }
       }
     },
-    "/v1/users/{userId}": {
+    "/users/{userId}": {
       "get": {
-        "tags": ["user"],
-        "summary": "",
-        "description": "",
+        "tags": [
+          "user"
+        ],
+        "summary": "Find user by ID",
+        "description": "Returns a single user.",
         "parameters": [
           {
             "name": "userId",
             "in": "path",
+            "description": "ID of user to return",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "User object",
-            "schema": {
-              "$ref": "#/definitions/User"
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
             }
           },
           "404": {
@@ -91,38 +126,87 @@
       }
     }
   },
-  "definitions": {
-    "User": {
-      "type": "object",
-      "required": ["email", "active"],
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "age": {
-          "type": "number"
-        },
-        "active": {
-          "type": "boolean",
-          "description": "True for active users"
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "required": [
+          "email",
+          "active"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "john.doe@example.com"
+          },
+          "age": {
+            "type": "integer",
+            "format": "int32",
+            "example": 30
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Indicates if the user account is active.",
+            "default": true
+          }
         }
-      }
-    },
-    "NewUser": {
-      "type": "object",
-      "required": ["name", "email"],
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
+      },
+      "NewUser": {
+        "type": "object",
+        "required": [
+          "name",
+          "email"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Jane Doe"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "jane.doe@example.com"
+          }
+        }
+      },
+      "RequestValidationFailed": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "example": 400
+          },
+          "status": {
+            "type": "string",
+            "example": "Bad Request"
+          },
+          "message": {
+            "type": "string",
+            "example": "Request validation failed"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "example": [
+              {
+                "field": "email",
+                "message": "Email is required"
+              }
+            ]
+          }
         }
       }
     }

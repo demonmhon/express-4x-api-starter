@@ -9,14 +9,14 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --coverage --coverageReporters=\"text-summary\"",
     "test:watch": "cross-env NODE_ENV=test jest --watch",
-    "start": "cross-env NODE_ENV=production pm2 ./src/index.js",
+    "start": "cross-env NODE_ENV=production pm2 ./src/index.ts",
     "start:docker": "docker run -d -p 3301:3301 express-4x-api-starter",
     "build": "npx tsc",
     "dev": "cross-env NODE_ENV=development nodemon ./src/index.ts",
     "lint": "eslint -c .eslintrc ./src",
     "lint:fix": "eslint -c .eslintrc ./src --fix",
-    "prettier": "prettier --check \"src/**/*.js\"",
-    "prettier:write": "prettier --check \"src/**/*.js\" --write"
+    "prettier": "prettier --check \"src/**/*.ts\"",
+    "prettier:write": "prettier --check \"src/**/*.ts\" --write"
   },
   "author": "thanawat.petchsri@gmail.com",
   "license": "ISC",

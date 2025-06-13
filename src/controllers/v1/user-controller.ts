@@ -62,7 +62,7 @@ export const getById = (req: Request, res: Response) => {
   if (matchUser.length) {
     return res.send(matchUser[0]);
   }
-  throw new ResourceNotfound(`No user with given id: ${id}`);
+  throw new ResourceNotfound(`User ${id} not found`);
 };
 
 export const postUser = (req: Request, res: Response) => {
